@@ -91,7 +91,7 @@
                 top: 0%;
                 display: flex;
                 list-style-type: none;
-                animation: marqeeTB 9s linear infinite;
+                animation: marqeeTB 12s linear infinite;
                 position: absolute;
                 font-family: 微軟正黑體;
                 font-size: 1.2em;
@@ -102,7 +102,7 @@
             }
 
             .mymarqee:hover {
-                height: 7em;
+                height: 10em;
                 overflow: auto;
             }
 
@@ -117,7 +117,7 @@
                 transform: translateY(101%);
             }
 
-            2% {
+            3% {
                 color: #424242;
                 top: 101%;
                 transform: translateY(-2%);
@@ -162,8 +162,8 @@
             }
 
             speechInstance.volume = 1;
-            speechInstance.rate = 1;
-            speechInstance.pitch = 1;
+            speechInstance.rate = 0.7;
+            speechInstance.pitch = 0.8;
             speechInstance.lang = LangType;
             speechSynthesis.speak(speechInstance);
 
@@ -192,21 +192,21 @@
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="1000">
+            <div class="carousel-item active" data-bs-interval="2000">
                 <a id="ImgLink1" href="#"><img src="2021.jpg" class="d-block w-100" alt="2021~2022"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>2021~2022</h5>
                     <p>公司內部考評始終維持最高品等A+及上司評價</p>
                 </div>
             </div>
-            <div class="carousel-item" data-bs-interval="1500">
+            <div class="carousel-item" data-bs-interval="3000">
                 <a id="ImgLink2" href="#"><img src="2020.jpg" class="d-block w-100" alt="2020"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>2020</h5>
                     <p>公司內部考評始終維持最高品等A+及長官評價</p>
                 </div>
             </div>
-            <div class="carousel-item" data-bs-interval="1500">
+            <div class="carousel-item" data-bs-interval="3000">
                 <a id="ImgLink3" href="#"><img src="Step1.jpg" class="d-block w-100" alt="2020"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>專案背景暨行為時序圖</h5>
