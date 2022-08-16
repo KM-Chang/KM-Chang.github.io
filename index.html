@@ -137,6 +137,7 @@
             $("#ImgLink2").on("click", () => ShowImg("2020.jpg"));
 
             setTimeout(startButton11("zh-TW"), 2000);
+            //setTimeout(startButton11("ja-JP"), 3000);
         });
         function ShowImg(FileNmae) {
             $("#ImgShows").attr("src", FileNmae);
@@ -147,8 +148,8 @@
             myModal.show();
         }
         function startButton11(LangType) {
-            //speechSynthesis.cancel();
-            //speechSynthesis.resume();
+            speechSynthesis.cancel();
+            speechSynthesis.resume();
 
             if (LangType == "zh-TW") {
                 speechInstance.text = "你好　這裡是張凱閔的首頁　";
@@ -162,7 +163,6 @@
             speechInstance.lang = LangType;
             speechSynthesis.speak(speechInstance);
 
-            //setTimeout(startButton11("ja-JP"), 200);
         }
     </script>
 </head>
