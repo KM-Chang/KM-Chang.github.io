@@ -133,12 +133,12 @@
     <script>
         var speechInstance = new SpeechSynthesisUtterance();
         $(window).ready(() => {
-            $("#ImgLink1").on("click", () => ShowImg("2021.jpg"));
-            $("#ImgLink2").on("click", () => ShowImg("2020.jpg"));
-            $("#ImgLink3").on("click", () => ShowImg("Step1.jpg"));
-            $("#ImgLink4").on("click", () => ShowImg("Step2.jpg"));
-            $("#ImgLink5").on("click", () => ShowImg("Step3.jpg"));
-            $("#ImgLink6").on("click", () => ShowImg("Step4.jpg"));
+            $("#ImgLink1").on("click", () => ShowImg("2021.jpg", "2021~2022考評"));
+            $("#ImgLink2").on("click", () => ShowImg("2020.jpg", "2020考評"));
+            $("#ImgLink3").on("click", () => ShowImg("Step1.jpg", "行為時序圖"));
+            $("#ImgLink4").on("click", () => ShowImg("Step2.jpg", "架構流程圖"));
+            $("#ImgLink5").on("click", () => ShowImg("Step3.jpg", "OCR核心協作圖"));
+            $("#ImgLink6").on("click", () => ShowImg("Step4.jpg", "課程生命週期圖"));
 
             setTimeout(startButton11("ja-JP"), 2000);
             //setTimeout(startButton11("zh-TW"), 3000);
@@ -199,28 +199,28 @@
                     <p>公司內部考評始終維持最高品等A+及上司評價</p>
                 </div>
             </div>
-            <div class="carousel-item" data-bs-interval="1000">
+            <div class="carousel-item" data-bs-interval="1500">
                 <a id="ImgLink2" href="#"><img src="2020.jpg" class="d-block w-100" alt="2020"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>2020</h5>
                     <p>公司內部考評始終維持最高品等A+及長官評價</p>
                 </div>
             </div>
-            <div class="carousel-item" data-bs-interval="1300">
+            <div class="carousel-item" data-bs-interval="1500">
                 <a id="ImgLink3" href="#"><img src="Step1.jpg" class="d-block w-100" alt="2020"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>專案背景暨行為時序圖</h5>
                     <p>個人規劃並繪製之智能班務系統系統分析相關圖</p>
                 </div>
             </div>
-            <div class="carousel-item" data-bs-interval="2000">
+            <div class="carousel-item" data-bs-interval="3000">
                 <a id="ImgLink4" href="#"><img src="Step2.jpg" class="d-block w-100" alt="2020"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>流程架構圖及流程圖</h5>
                     <p>實際情境以系統規劃流程圖</p>
                 </div>
             </div>
-            <div class="carousel-item" data-bs-interval="1000">
+            <div class="carousel-item" data-bs-interval="1500">
                 <a id="ImgLink5" href="#"><img src="Step3.jpg" class="d-block w-100" alt="2020"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>OCR協作架構</h5>
