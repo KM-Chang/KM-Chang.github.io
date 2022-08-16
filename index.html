@@ -135,13 +135,17 @@
         $(window).ready(() => {
             $("#ImgLink1").on("click", () => ShowImg("2021.jpg"));
             $("#ImgLink2").on("click", () => ShowImg("2020.jpg"));
+            $("#ImgLink3").on("click", () => ShowImg("Step1.jpg"));
+            $("#ImgLink4").on("click", () => ShowImg("Step2.jpg"));
+            $("#ImgLink5").on("click", () => ShowImg("Step3.jpg"));
+            $("#ImgLink6").on("click", () => ShowImg("Step4.jpg"));
 
-            setTimeout(startButton11("zh-TW"), 2000);
-            //setTimeout(startButton11("ja-JP"), 3000);
+            setTimeout(startButton11("ja-JP"), 2000);
+            //setTimeout(startButton11("zh-TW"), 3000);
         });
-        function ShowImg(FileNmae) {
+        function ShowImg(FileNmae,TitleName) {
             $("#ImgShows").attr("src", FileNmae);
-            $("#exampleModalLabel").text(FileNmae);
+            $("#exampleModalLabel").text(TitleName);
             var myModal = new bootstrap.Modal(document.getElementById("opalrt"), {
                 keyboard: false
             });
@@ -154,7 +158,7 @@
             if (LangType == "zh-TW") {
                 speechInstance.text = "你好　這裡是張凱閔的首頁　";
             } else {
-                speechInstance.text = "こんにちは　こちらはチヨウ　カイミンのホームページですよ　";
+                speechInstance.text = "こんにちは　こちらは チヨウカイミン のホームページですよ　";
             }
 
             speechInstance.volume = 1;
@@ -166,7 +170,7 @@
         }
     </script>
 </head>
-<body>
+<body oncontextmenu="return false" >
     <div class="mymarqee RtoLgo" runat="server" visible="false">
         <p class="bevelBlue">重要資訊</p>
         <div>
@@ -182,20 +186,52 @@
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="3000">
+            <div class="carousel-item active" data-bs-interval="1000">
                 <a id="ImgLink1" href="#"><img src="2021.jpg" class="d-block w-100" alt="2021~2022"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>2021~2022</h5>
-                    <p>公司內部考評始終維持最高品等A+及長官評價</p>
+                    <p>公司內部考評始終維持最高品等A+及上司評價</p>
                 </div>
             </div>
-            <div class="carousel-item" data-bs-interval="5000">
+            <div class="carousel-item" data-bs-interval="1000">
                 <a id="ImgLink2" href="#"><img src="2020.jpg" class="d-block w-100" alt="2020"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>2020</h5>
                     <p>公司內部考評始終維持最高品等A+及長官評價</p>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="1300">
+                <a id="ImgLink3" href="#"><img src="Step1.jpg" class="d-block w-100" alt="2020"></a>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>專案背景暨行為時序圖</h5>
+                    <p>個人規劃並繪製之智能班務系統系統分析相關圖</p>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <a id="ImgLink4" href="#"><img src="Step2.jpg" class="d-block w-100" alt="2020"></a>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>流程架構圖及流程圖</h5>
+                    <p>實際情境以系統規劃流程圖</p>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="1000">
+                <a id="ImgLink5" href="#"><img src="Step3.jpg" class="d-block w-100" alt="2020"></a>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>OCR協作架構</h5>
+                    <p>與OCR核心AP協作詳細架構</p>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+                <a id="ImgLink6" href="#"><img src="Step4.jpg" class="d-block w-100" alt="2020"></a>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>課程生命週期</h5>
+                    <p>智能報到系統從系統系統所介接而來的課程於本系統中產生的生命週期</p>
                 </div>
             </div>
         </div>
