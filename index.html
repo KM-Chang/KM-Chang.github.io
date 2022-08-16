@@ -147,8 +147,8 @@
             myModal.show();
         }
         function startButton11(LangType) {
-            //speechSynthesis.cancel();
-            //speechSynthesis.resume();
+            speechSynthesis.cancel();
+            speechSynthesis.resume();
 
             if (LangType == "zh-TW") {
                 speechInstance.text = "你好　這裡是張凱閔的首頁　";
@@ -162,7 +162,7 @@
             speechInstance.lang = LangType;
             speechSynthesis.speak(speechInstance);
 
-            //setTimeout(startButton11("ja-JP"), 200);
+            setTimeout(startButton11("ja-JP"), 200);
         }
     </script>
 </head>
