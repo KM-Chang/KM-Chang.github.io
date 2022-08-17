@@ -2,10 +2,10 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <meta http-equiv="X-XSS-Protection" content="1;mode=block">
     <meta http-equiv="X-Content-Type-Option" content="nosniff">
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536001">
+    <title>凱閔的首頁 チヨウのホームページ</title>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <style>
         body {
@@ -13,6 +13,8 @@
             background-color: #e8eaf8;
             font-family: 微軟正黑體,'Arial Rounded MT';
         }
+
+        #LabVer {position:fixed;bottom:2%;right:2%; }
 
         .carousel-control-prev-icon, .carousel-inner h5, .carousel-inner p {
             font-weight: 600;
@@ -140,8 +142,8 @@
             $("#ImgLink5").on("click", () => ShowImg("Step3.jpg", "OCR核心協作圖"));
             $("#ImgLink6").on("click", () => ShowImg("Step4.jpg", "課程生命週期圖"));
 
-            setTimeout(startButton11("ja-JP"), 2000);
-            //setTimeout(startButton11("zh-TW"), 3000);
+            //setTimeout(startButton11("ja-JP"), 2000);
+            setTimeout(startButton11("zh-TW"), 2500);
         });
         function ShowImg(FileNmae,TitleName) {
             $("#ImgShows").attr("src", FileNmae);
@@ -171,8 +173,9 @@
     </script>
 </head>
 <body oncontextmenu="return false" >
+    <span id="LabVer">v1.0.3</span>
     <div class="mymarqee RtoLgo" runat="server" visible="false">
-        <p class="bevelBlue">重要資訊</p>
+        <p class="bevelBlue">歡迎資訊</p>
         <div>
             <span id="LagMsg">
                 你好！<br />這裡是張凱閔的面試首頁<br />目前還在建製中<br />下列是來自於目前公司內部考評<br />所得到的評價，提供參考
