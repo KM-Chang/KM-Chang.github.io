@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html> 
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>さくらヘミンより</title>
+    <style type="text/css">
+	body{background:#e9e9e9;padding:0px;margin:0px;}
+	#NavbarFrame{background-color:#2f2e2e; }
+	#NavbarFrame>ul>li{display:inline;letter-spacing:12px; }
+	#NavbarFrame>ul>li>span{padding:7px;cursor: pointer; border-radius:5px; color:#ffffff;font-size:1.3em;}
+	#NavbarFrame>ul>li>ul{display:none;position:fixed; z-index:99;list-style:none; background-color:#ffffff; border-radius:5px;padding:5px; }
+    #NavbarFrame>ul>li>ul>li{border-bottom:1px solid #AAA;cursor: pointer;}
+	#NavbarFrame>ul>li>ul>li:hover{background:#555;color:#ffffff;}
+	h2 {color:#74093d;}
+	#ContentFrame{margin:0% 3%;padding:10px;padding:7px;}
+	#FooterFrame>div{background-color:#2f2727; color:white;margin:0% 3%;padding:10px;border-radius:10px;}
+	.RtoLgo {animation:RtoRnika 0.7s linear 1;}
+	.bevelBlue {font-weight: bold;display:inline-block;width:100px;height: 2.5em;background: linear-gradient(-58deg, transparent 31px, #1654ff 0);border-left:5px solid #14c8e9;font-size:1.2em; color:white; font-family:'Segoe UI'; padding:7px;}
+	.mymarqee 
+	{
+    	height: 2.5em;
+    	margin: 0 auto;
+    	margin-bottom:5px;
+    	overflow: hidden; 
+    	position: relative;
+    	background:#c2c1c1;
+    	transition:height 0.5s;
+	}
+	.mymarqee > div 
+	{
+    	left: 120px;
+    	top: 0%;
+    	display:flex;
+    	list-style-type: none;
+    	animation: marqeeTB 12s linear infinite;
+    	position: absolute;
+    	font-size:1.2em;
+    	padding:3px;
+    	font-weight: bold;
+    	min-height:2.5em;
+    	color:#424242;
+	}
+	.mymarqee:hover{height:7em;overflow:auto; }
+	.mymarqee > div:hover {animation: none;}
+	@keyframes marqeeTB {
+ 	  0% {
+  	  color:#c2c1c1;
+  	  top: 106%;
+  	  transform: translateY(101%);
+ 	  }
+	  2%{
+  	   color:#424242;
+  	   top: 101%;
+  	   transform: translateY(-2%);
+ 	   }
+ 	  100% {
+  	  color:#424242;
+  	  top: -2%;
+  	  transform: translateY(-102%);
+ 	  }
+	}
+	@keyframes RtoRnika{
+  	  0% {left: 100%;transform: translateX(0%);transform-origin:bottom;transform:skewX(-30deg);}
+  	  80%{left:0;transform-origin:bottom;transform:skewX(0deg);}
+  	  85%{left:20px;}
+  	  90%{left:0;}
+  	  95%{left:15px;}
+  	  100% {left:0;}
+	}
+    </style>
+    <script  src="https://code.jquery.com/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="  crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    	$(function () {
+    	    $("#NavbarFrame ul li span").hover(function () {
+		        $(this).next().css({"left": $(this).position().left });
+		        $(this).next().slideDown();
+    	    }, function () {
+    	        $(this).next().hide();
+    	    });
+    	    $("#NavbarFrame ul li ul").hover(function () {
+    	        $(this).show();
+    	    }, function () {
+    	        $(this).hide();
+    	    });
+	        $("#NavbarFrame>ul>li>ul li").click(function () {
+		        $(this).parent("ul").hide();
+            	$("#TitName").html($(this).html());
+            });
+	    });
+    </script>
+</head>
+<body>
+	<div id="NavbarFrame">
+	  <ul>
+	    <li><span>ハンバーガー▼&nbsp;|</span>
+	        <ul>
+　	          <li>ハンバーガー A</li>
+　	          <li>ハンバーガー B</li>
+　	          <li>ハンバーガー C</li>
+　	          <li>ハンバーガー D</li>
+	        </ul>
+	    </li>
+	    <li><span>飲み物▼&nbsp;|</span>
+	        <ul>
+　	    	  <li>飲み物 A</li>
+　	    	  <li>飲み物 B</li>
+	        </ul>
+	    </li>
+	    <li><span>サンドイッチ▼&nbsp;</span>
+	        <ul>
+　	    	  <li>サンドイッチ A</li>
+　	    	  <li>サンドイッチ B</li>
+　	    	  <li>サンドイッチ C</li>
+	        </ul>
+	    </li>
+	   </ul>
+	</div>
+        <div id="ContentFrame">
+	<h2><span id="TitName">ハンバーガー A</span></h2>
+	內容です！
+	<br /><br /><br /><br /><br /><br />
+	   <div class="mymarqee RtoLgo"><span class="bevelBlue">お知らせ</span>
+       <div>
+		さくらヘ<br />
+		ファーストフード店のアルバイトもお疲れ様ですね！<br />
+		私はさくらに見たことがありませんが、<br />
+		さくらはとても頑張る人だと思います！！<br />
+		ですからどの仕事も大丈夫よ～<br />
+		頑張って下さい＾＾<br />
+		ミンより<br /><br />
+		</div>
+        </div>
+	<hr />
+	</div>
+        <div id="FooterFrame">
+	　　<div>
+	　　  さくらにあけるサンプルコードです＾＾<br />
+	　　  ミンは台湾で作った！&nbsp;&nbsp;&nbsp;Ver：1.0 © &nbsp;(UpdateDate 2019.11.11)
+		<br />
+	    </div>
+	</div>
+</body>
+</html>
