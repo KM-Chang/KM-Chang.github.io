@@ -1,0 +1,122 @@
+﻿/*我的自製動畫
+    animation: name duration timing-function delay iteration-count direction;
+    animation-name: 動畫名稱;
+    animation-duration: 動畫作用時間;
+    animation-timing-function: 動畫補間時運用的計算公式;
+    animation-delay: 動畫需間隔多久後才開始;
+    animation-iteration-count: 動畫作用次數;
+    animation-direction: 動畫作用的方向;
+    引用時，編輯好樣式後，指定動畫名稱即可 
+    style="animation:"
+    簡易寫法：style="animation: myAnimation 3s ease 0s infinite alternate";
+    style="animation:moveball 6s infinite";
+*/
+/*滑鼠移過去圖示轉一圈*/
+.close:hover, .glyphicon-plus:hover,.glyphicon-remove:hover,.glyphicon-cog:hover,.Myrotate:hover {transition: transform 0.7s;transform: rotate(180deg);}
+/*X跟Y軸翻轉一圈*/
+.MyrotateX {animation:MyrotateX 0.7s linear 1; }.MyrotateY {animation:MyrotateY 0.7s linear 1;}
+@keyframes MyrotateX {from {transform: rotateX(0deg);}to{transform: rotateX(720deg);}}@keyframes MyrotateY {from {transform: rotateY(0deg);}to{transform: rotateY(720deg);}}
+/*斜角標籤*/
+.bevelBlue {font-weight: bold;display:inline-block;width:115px;height: 2.5em;background: linear-gradient(-40deg, transparent 31px, #1654ff 0);border-left:5px solid #14c8e9;font-size:1.2em; color:white; font-family:'Segoe UI'; padding:7px;}
+.bevelRed {font-weight: bold;display:inline-block;width:115px; height: 2.5em; background: linear-gradient(-40deg, transparent 31px, #fa4949 0);border-left:5px solid #ee7128;font-size:1.2em; color:white; font-family:'Segoe UI'; padding:7px;}
+/*瞬間閃爍*/
+@keyframes blink1 {
+    0% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    81% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+/*漸層閃爍*/
+@keyframes blink2 {from {opacity: 1;}to{opacity: 0;}}
+/*變形球*/
+.BallAim {
+  margin:0 47% 50px;
+  width:50px;
+  height:50px;
+  background-color:#fa4949;
+  animation:moveball 5s infinite;
+  transform-origin:left bottom;
+  border-radius: 50% 50% 50% 0%;
+}
+@keyframes moveball {
+    0% {transform: rotate(0deg);}
+    25% { background-color:#f6dd15;}
+    75% { background-color:#1266c1;}
+    100% {transform: rotate(720deg);}
+}
+/*跑馬燈*/
+.mymarqee {
+    height: 2.5em;
+    margin: 0 auto;
+    margin-bottom:5px;
+    overflow: hidden; 
+    position: relative;
+    background:#c2c1c1;
+    transition:height 0.5s;
+}
+.mymarqee > div {
+    left: 120px;
+    top: 0%;
+    display:flex;
+    list-style-type: none;
+    animation: marqeeTB 9s linear infinite;
+    position: absolute;
+    font-family:微軟正黑體;
+    font-size:1.2em;
+    padding:3px;
+    font-weight: bold;
+    min-height:2.5em;
+    color:#424242;
+}
+/*停止狀態*/
+.mymarqee:hover{height:7em;overflow:auto; }
+.mymarqee > div:hover {animation: none;}
+/*跑馬右到左*/
+@keyframes marqeeRL {
+ 0% {
+  left: 100%;
+  transform: translateX(0);
+ }
+ 
+ 100% {
+  left: 0;
+  transform: translateX(-100%);
+ }
+}
+/*跑馬下到上*/
+@keyframes marqeeTB {
+ 0% {
+  color:#c2c1c1;
+  top: 106%;
+  transform: translateY(101%);
+ }
+2%{
+  color:#424242;
+  top: 101%;
+  transform: translateY(-2%);
+ }
+ 100% {
+  color:#424242;
+  top: -2%;
+  transform: translateY(-102%);
+ }
+}
+/*右邊傾斜滑入抖兩下*/
+@keyframes RtoRnika{
+  0% {left: 100%;transform: translateX(0%);transform-origin:bottom;transform:skewX(-30deg);}
+  80%{left:0;transform-origin:bottom;transform:skewX(0deg);}
+  85%{left:20px;}
+  90%{left:0;}
+  95%{left:15px;}
+  100% {left:0;}
+}
+/*資料視覺化圖表用*/
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}

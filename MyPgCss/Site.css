@@ -1,0 +1,268 @@
+﻿/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    padding-left: 3%;
+    padding-right: 3%;
+    background-color:rgba(250, 250, 250, 0.75);
+    font-family:Segoe UI, Arial,微軟正黑體;
+}
+a:link{text-decoration:none;}   /*未連結不出現底線*/
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-footer {
+    padding-left: 15px;
+    font-size:1.2rem;
+    letter-spacing:0.3rem;
+}
+/*導覽列主畫面設計藍色*/
+.navbar-default {
+  background-color: #6781c3;
+  border-color: #2b6fb2;
+  padding-right:20px; padding-left:5px;   /*設定頭尾距離不要黏住*/
+}
+.navbar-default .navbar-brand {
+  color: #f4f8f9;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #c3c3c3;
+}
+.navbar-default .navbar-text {
+  color: #f4f8f9;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #f4f8f9;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #c3c3c3;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #c3c3c3;
+  background-color: #2b6fb2;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #c3c3c3;
+  background-color: #2b6fb2;
+}
+.navbar-default .navbar-toggle {
+  border-color: #2b6fb2;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #2b6fb2;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #f4f8f9;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #f4f8f9;
+}
+.navbar-default .navbar-link {
+  color: #f4f8f9;
+}
+.navbar-default .navbar-link:hover {
+  color: #c3c3c3;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #f4f8f9;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #c3c3c3;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #c3c3c3;
+    background-color: #2b6fb2;
+  }
+.dropdown-header { color:#c3c3c3;}
+}
+.navbar-brand,.navbar-nav,.navbar-nav a {font-size:1.13em;}      /*導覽列加大文字*/
+.navbar-nav  a  i {font-size:0.65em;}      /*導覽列加大文字*/
+/*第二層子選單*/
+.dropdown-submenu{position:relative;}
+.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
+.dropdown-submenu:hover>.dropdown-menu{display:block;}
+.dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}
+.dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
+.dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+/*input,
+select,
+textarea {
+    max-width: 300px;
+}
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+    .body-content {
+        padding: 0;
+    }
+}
+/*Firefox 瀏覽器響應式表格處理*/
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
+}
+/*調整卷軸發生長度*/
+.pre-scrollable { max-height:360px;}
+/*回到頂端用*/
+.btnTopme {position: fixed; right: 2%; bottom: 2%; cursor: pointer; opacity: .6; z-index: 9;display:none;}
+.btnTopme:hover { opacity: 1;}
+/*自製背景遮罩*/
+.divMaskKT {position:fixed;z-index:99998;opacity:.8;width:100vw; height:100vh; background-color:#586e85; left:0;top:0 }
+ /*上方軌跡連結 麵包屑 改寫*/
+.breadcrumb
+{
+    background: rgba(250, 250, 250, 0.75);
+    padding-bottom:1px;
+    margin-bottom:5px;
+    padding-left:0px;
+}
+/*自製清單表格 改寫*/
+.table-MyGv
+{ 
+    width:100%;
+    border:0px solid #ddd;
+    font-size: 1.1em;
+    margin-top:3px;
+}
+.table-MyGv tr:first-child>th
+{ 
+    color:#FFFFFF;
+    vertical-align: top;
+    white-space: nowrap;
+    font-size:1.15em;
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd;
+    background-color:#59A3C2;
+}
+.table-MyGv tr:last-child>td
+{
+    border-bottom:1px solid #59A3C2;
+}
+.table-MyGv tr:first-child>th:first-child,.table-MyGv tr>td:first-child
+{ 
+    text-align:center;
+}
+.table-MyGv td
+{
+    border-left:0px solid #ddd;
+    border-right:0px solid #ddd;
+    padding:2px;
+}
+.table-MyGv tr:hover
+{
+    background:#cad6de;
+}
+/*自製GridView分頁樣式 把bootstrap的ul il改寫為 tr td*/
+.MyGvPageCss>td{background:#FAFAFA;/*避免分頁列變色*/}
+.MyGvPageCss>td>table{width:100%; text-align:center;}
+.MyGvPageCss>td>table tr{background:#FAFAFA !important;display:inline-block;padding-left:0; border-radius:4px}
+.MyGvPageCss>td>table tr>td{border-bottom:0px !important;display:inline}
+.MyGvPageCss>td>table tr>td>a,.MyGvPageCss>td>table tr>td>span{
+    position:relative;
+    float:left;
+    padding:6px 12px;
+    margin-left:-1px;
+    line-height:1.42857143;
+    color:#337ab7;
+    text-decoration:none;
+    background-color:#fff;
+    border:1px solid #ddd
+}
+.MyGvPageCss>td>table tr>td:first-child>a,.MyGvPageCss>td>table tr>td:first-child>span{
+    margin-left:0;
+    border-top-left-radius:4px;
+    border-bottom-left-radius:4px
+}
+.MyGvPageCss>td>table tr>td:last-child>a,.MyGvPageCss>td>table tr>td:last-child>span{
+    border-top-right-radius:4px;
+    border-bottom-right-radius:4px
+}
+.MyGvPageCss>td>table tr>td>a:focus,.MyGvPageCss>td>table tr>td>a:hover,.MyGvPageCss>td>table tr>td>span:focus,.MyGvPageCss>td>table tr>td>span:hover{
+    z-index:2;
+    color:#23527c;
+    background-color:#eee;
+    border-color:#ddd
+}
+.MyGvPageCss>td>table tr>td>span,.MyGvPageCss>td>table tr>td>span:focus,.MyGvPageCss>td>table tr>td>span:hover{
+    z-index:3;
+    color:#fff;
+    cursor:default;
+    background-color:#337ab7;
+    border-color:#337ab7
+}
+.MyGvPageCss-lg>td>table tr>td>a,.MyGvPageCss-lg>td>table tr>td>span{
+    padding:10px 16px;
+    font-size:18px;
+    line-height:1.3333333
+}
+.MyGvPageCss-lg>td>table tr>td:first-child>a,.MyGvPageCss-lg>td>table tr>td:first-child>span{
+    border-top-left-radius:6px;
+    border-bottom-left-radius:6px
+}
+.MyGvPageCss-lg>td>table tr>td:last-child>a,.MyGvPageCss-lg>td>table tr>td:last-child>span{
+    border-top-right-radius:6px;
+    border-bottom-right-radius:6px
+}
+.MyGvPageCss-sm>td>table tr>td>a,.MyGvPageCss-sm>td>table tr>td>span{
+    padding:5px 10px;
+    font-size:12px;
+    line-height:1.5
+}
+.MyGvPageCss-sm>td>table tr>td:first-child>a,.MyGvPageCss-sm>td>table tr>td:first-child>span{
+    border-top-left-radius:3px;
+    border-bottom-left-radius:3px
+}
+.MyGvPageCss-sm>td>table tr>td:last-child>a,.MyGvPageCss-sm>td>table tr>td:last-child>span{
+    border-top-right-radius:3px;
+    border-bottom-right-radius:3px
+}
+/*Gridview 清表格刪除確認用*/
+.MyGvDelcfrm li{font-size:1.1em; text-align:center;}
+/*縮文字*/
+.shrinkText {
+  display : inline-block;
+  overflow : hidden;
+  text-overflow : ellipsis;
+  white-space : nowrap;
+}
+/*說明文字*/
+.needtxt{font-size:0.83em;color:Red;font-family: 微軟正黑體;}
+/*自製紅字粗體 附件用*/
+.annexSpan {font-weight:bold; color:red;font-family: 微軟正黑體;}
+/*調高列表組項目、框架組內容字體*/
+.list-group-item { font-size:1.1em;} 
+.panel-body { font-size:1.05em;}
+/*查無資料框*/
+.MyEmptyDtBox { font-size:1.1em;} 
+/*自製btn顏色*/
+.btn-Mycolr {background-color:#59A3C2;color:white;}
+.btn-Mycolr:hover {background-color:#5a93aa;color:white;}
+.btn-Mycolr:focus {color:white;}
+/*編輯表單表格*/
+.MyEditpanel>.panel-footer{text-align:center;}
+.MyEditpanel .form-group .control-label{max-width:95px;}
+/*上方查詢或新增框*/
+.TSelAddiv {margin-bottom:3px; padding:2px 1px; min-height:2.7em;}
+/*FileUp上傳樣式*/
+.FileUpLodir>[type="file"]{display:none; opacity: 0;}
+.FileUpLodir .badge {cursor: pointer; }
+.FileUpLodir .badge:nth-child(1) {background-color:#d9534f;}
+/*日曆長度*/
+.datedivKT { max-width:165px;}
+/*增加頁籤選取中標記*/
+.nav-tabs .active { border-bottom:3px solid #59A3C2; border-bottom-left-radius:3px; border-bottom-right-radius:14px;border-right:3px solid #ffffff;}
