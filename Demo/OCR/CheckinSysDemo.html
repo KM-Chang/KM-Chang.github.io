@@ -1,0 +1,246 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-XSS-Protection" content="1;mode=block">
+    <meta http-equiv="X-Content-Type-Option" content="nosniff">
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536001">
+    <meta name="robots" content="noindex">
+    <title>張凱閔のスマートチェックインシステムのデモ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            padding: 1% 8%;
+            background-color: #e8eaf8;
+            font-family: 微軟正黑體,'Arial Rounded MT';
+        }
+
+        #LabVer {
+            position: fixed;
+            bottom: 2%;
+            right: 2%;
+        }
+
+
+        .RtoLgo {
+            animation: RtoRnika 0.9s linear 1;
+        }
+
+        @keyframes RtoRnika {
+            0% {
+                left: 100%;
+                transform: translateX(0%);
+                transform-origin: bottom;
+                transform: skewX(-30deg);
+            }
+
+            80% {
+                left: 0;
+                transform-origin: bottom;
+                transform: skewX(0deg);
+            }
+
+            85% {
+                left: 20px;
+            }
+
+            90% {
+                left: 0;
+            }
+
+            95% {
+                left: 15px;
+            }
+
+            100% {
+                left: 0;
+            }
+        }
+
+        .bevelBlue {
+            font-weight: bold;
+            display: inline-block;
+            width: 115px;
+            height: 2.1em;
+            background: linear-gradient(-40deg, transparent 31px, #1654ff 0);
+            border-left: 5px solid #14c8e9;
+            font-size: 1.2em;
+            color: white;
+            font-family: 'Segoe UI';
+            padding: 2px 10px;
+        }
+
+        .mymarqee {
+            height: 2.1em;
+            margin: 0 auto;
+            margin-bottom: 5px;
+            overflow: hidden;
+            position: relative;
+            background: #c2c1c1;
+            transition: height 0.5s;
+        }
+
+            .mymarqee > div {
+                left: 120px;
+                top: 0%;
+                display: flex;
+                list-style-type: none;
+                animation: marqeeTB 12s linear infinite;
+                position: absolute;
+                font-family: 微軟正黑體;
+                font-size: 1.2em;
+                padding: 3px;
+                font-weight: bold;
+                min-height: 2.5em;
+                color: #424242;
+            }
+
+            .mymarqee:hover {
+                height: 10em;
+                overflow: auto;
+            }
+
+            .mymarqee > div:hover {
+                animation: none;
+            }
+
+        @keyframes marqeeTB {
+            0% {
+                color: #c2c1c1;
+                top: 106%;
+                transform: translateY(101%);
+            }
+
+            3% {
+                color: #424242;
+                top: 101%;
+                transform: translateY(-2%);
+            }
+
+            100% {
+                color: #424242;
+                top: -2%;
+                transform: translateY(-102%);
+            }
+        }
+        #mediaTabContent {
+            padding: 1% 3%;
+            min-height: 600px;
+            border-bottom: 3px solid #59A3C2;
+        }
+
+        .nav-tabs .nav-link.active,
+        .nav-tabs .nav-item.show .nav-link {
+            color: white;
+            background-color: #59A3C2;
+            border-bottom: 2.5px solid #e48b15;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 25px;
+            border-right: 2.5px solid #e48b15;
+        }
+        video {
+            height:120vh;
+        }
+        .tab-pane {
+            text-align:center;
+        }
+    </style>
+    <script>
+        $(window).ready(() => {
+            $("#ImgLink1").on("click", () => ShowImg("vvideo/OCR.jpg", "構成図"));
+
+
+        });
+        function ShowImg(FileNmae, TitleName) {
+            $("#ImgShows").attr("src", FileNmae);
+            $("#exampleModalLabel").text(TitleName);
+            var myModal = new bootstrap.Modal(document.getElementById("opalrt"), {
+                keyboard: false
+            });
+            myModal.show();
+        }
+    </script>
+</head>
+<body class="container py-4">
+    <span id="LabVer">v1.0.0</span>
+    <div class="mymarqee RtoLgo" runat="server" visible="false">
+        <p class="bevelBlue">ご案内</p>
+        <div>
+            <span id="LagMsg">
+                你好！<br />這裡是張凱閔的面試首頁<br />下列是來自於目前公司考評<br />所得到的評價，提供參考
+                <br /><br />
+                こんにちは！<br />こちらはチヨウ‧カイミンが面接のために作ったのホームページです<br />以下は会社の評価であります<br />会社の上長にもらった評価，ご参考ください
+            </span>
+        </div>
+    </div>
+    <br />
+    <h2 class="mb-3">
+        【技術環境】
+    </h2>
+
+    <!-- 說明區塊 -->
+    <div id="description">
+        	.NET Core（C#）、Razor Pages（SPA構成）/JavaScript、HTML5/CSS3、jQuery、Bootstrap<br />
+        	T-SQL、SQL Server<br />
+        	Socket通信、.NET 6、RWD<br />
+    </div>
+
+    <!-- 頁籤區 -->
+    <ul class="nav nav-tabs" id="mediaTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab">構成図</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab">OCRチェックイン</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab">サイン・写真撮り．出力</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab4-tab" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab">QRcode読み込む（Web）</button>
+        </li>
+    </ul>
+
+    <!-- 頁籤內容 -->
+    <div class="tab-content mt-3" id="mediaTabContent">
+        <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+            <a id="ImgLink1" href="#"><img src="vvideo/OCR.jpg" alt="OCR"></a>
+        </div>
+        <div class="tab-pane fade" id="tab2" role="tabpanel">
+            <video controls>
+                <source src="vvideo/3.mp4" type="video/mp4">
+                ブラウザはビデオの再生をサポートしていません。
+            </video>
+        </div>
+        <div class="tab-pane fade" id="tab3" role="tabpanel">
+            <video controls>
+                <source src="vvideo/2.mp4" type="video/mp4">
+                ブラウザはビデオの再生をサポートしていません。
+            </video>
+        </div>
+        <div class="tab-pane fade" id="tab4" role="tabpanel">
+            <video controls>
+                <source src="vvideo/1.mp4" type="video/mp4">
+                ブラウザはビデオの再生をサポートしていません。
+            </video>
+        </div>
+    </div>
+
+    <div class="modal fade" id="opalrt" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="ImgShows" src="" class="d-block w-100" alt=".." />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
+</body>
+</html>

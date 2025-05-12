@@ -6,13 +6,17 @@
     <meta http-equiv="X-Content-Type-Option" content="nosniff">
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536001">
     <meta name="robots" content="noindex">
-    <title>凱閔的首頁 チヨウのホームページ</title>
+    <title>張凱閔のスマートチェックインシステムの設計</title>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <style>
         body {
             padding: 1% 8%;
             background-color: #e8eaf8;
             font-family: 微軟正黑體,'Arial Rounded MT';
+        }
+
+        .carousel-indicators button {
+            min-height:0.6em;
         }
 
         #LabVer {
@@ -38,8 +42,8 @@
         }
 
         #carouselExampleCaptions {
-            width: 66%;
-            margin-left: 17%;
+            width: 86%;
+            margin-left: 7%;
             border: 3px solid #268293;
         }
 
@@ -82,7 +86,7 @@
             font-weight: bold;
             display: inline-block;
             width: 115px;
-            height: 2.5em;
+            height: 2.3em;
             background: linear-gradient(-40deg, transparent 31px, #1654ff 0);
             border-left: 5px solid #14c8e9;
             font-size: 1.2em;
@@ -92,7 +96,7 @@
         }
 
         .mymarqee {
-            height: 2.5em;
+            height: 2.3em;
             margin: 0 auto;
             margin-bottom: 5px;
             overflow: hidden;
@@ -128,7 +132,7 @@
         @keyframes marqeeTB {
             0% {
                 color: #c2c1c1;
-                top: 106%;
+                top: 104%;
                 transform: translateY(101%);
             }
 
@@ -136,6 +140,18 @@
                 color: #424242;
                 top: 101%;
                 transform: translateY(-2%);
+            }
+
+            47% {
+                color: #424242;
+                top: 78%;
+                transform: translateY(-32%);
+            }
+
+            70% {
+                color: #424242;
+                top: 49%;
+                transform: translateY(-57%);
             }
 
             100% {
@@ -148,15 +164,13 @@
     <script>
         var speechInstance = new SpeechSynthesisUtterance();
         $(window).ready(() => {
-            $("#ImgLink1").on("click", () => ShowImg("HoumuPage/HpImg/2021.jpg", "2021~2022考評"));
-            $("#ImgLink2").on("click", () => ShowImg("HoumuPage/HpImg/2020.jpg", "2020考評"));
-            $("#ImgLink3").on("click", () => ShowImg("HoumuPage/HpImg/Step1.jpg", "行為時序圖"));
-            $("#ImgLink4").on("click", () => ShowImg("HoumuPage/HpImg/Step2.jpg", "架構流程圖"));
-            $("#ImgLink5").on("click", () => ShowImg("HoumuPage/HpImg/Step3.jpg", "OCR核心協作圖"));
-            $("#ImgLink6").on("click", () => ShowImg("HoumuPage/HpImg/Step4.jpg", "課程生命週期圖"));
-
+            $("#ImgLink3").on("click", () => ShowImg("HoumuPage/HpImg/Step1.jpg", "プロジェクト背景およびシーケンス図"));
+            $("#ImgLink4").on("click", () => ShowImg("HoumuPage/HpImg/Step2.jpg", "プロセスアーキテクチャ図およびフロー図"));
+            $("#ImgLink5").on("click", () => ShowImg("HoumuPage/HpImg/Step3.jpg", "OCR協働アーキテクチャ"));
+            $("#ImgLink6").on("click", () => ShowImg("HoumuPage/HpImg/Step4.jpg", "クラスライフサイクル"));
+            $("#ImgLink7").on("click", () => ShowImg("HoumuPage/HpImg/Step5.jpg", "課程生命週期圖"));
             //setTimeout(startButton11("ja-JP"), 2000);
-            setTimeout(startButton11("zh-TW"), 2500);
+            //setTimeout(startButton11("zh-TW"), 2500);
         });
         function ShowImg(FileNmae, TitleName) {
             $("#ImgShows").attr("src", FileNmae);
@@ -186,80 +200,99 @@
     </script>
 </head>
 <body oncontextmenu="return false" >
-    <span id="LabVer">v1.0.3</span>
+    <span id="LabVer">v1.1.0</span>
     <div class="mymarqee RtoLgo" runat="server" visible="false">
-        <p class="bevelBlue">歡迎資訊</p>
+        <p class="bevelBlue">お知らせ</p>
         <div>
             <span id="LagMsg">
-                你好！<br />這裡是張凱閔的面試首頁<br />下列是來自於目前公司考評<br />所得到的評價，提供參考
-                <br /><br />
-                こんにちは！<br />こちらはチヨウ‧カイミンが面接のために作ったのホームページです<br />以下は会社の評価であります<br />会社の上長にもらった評価，ご参考ください
+                ようこそ！<br /> 本ページは張凱閔が設計図の展示のために作ったのWebページです<br />
+                下記は資料は自分が設計したアーキテクチャ、システム構成の設計図<br />または処理フロー図です。
+                <br />
+                すべでの資料は<br />
+                システム分析、計画およびアーキテクチャ設計能力を示すためだけに作成したサンプルです。<br />
+                公開の可否については十分に確認を行い<br />
+                機密情報に該当する部分はすべてマスキングまたは改変済みであり<br />
+                実際の業務データではございません。
+                <br />
+                <br />
+                你好！<br />這裡是張凱閔的面試展示頁～<br />
+                <a href="Demo/OCR/CheckinSysDemo.html">＞＞＞ビデオDEMO＜＜＜</a>
             </span>
         </div>
     </div>
     <br />
     <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div id="TxtTitele">此資料僅為接露個人工作評價及系統分析規劃能力，相關資料已反覆是檢視否可以公開，機敏部分亦遮罩或變更，絕非實際工作上之資料</div>
+        <div id="TxtTitele">
+            本資料はシステム分析、計画、アーキテクチャ設計能力を示すためだけに作成したサンプル。実際の業務データではございません。
+        </div>
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
+            <!--<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>-->
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 5"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 6"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 7"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="2000">
-                <a id="ImgLink1" href="#"><img src="HoumuPage/HpImg/2021.jpg?1" class="d-block w-100" alt="2021~2022"></a>
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>2021~2022</h5>
-                    <p>公司內部考評始終維持最高品等A+及上司評價</p>
-                </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="3000">
-                <a id="ImgLink2" href="#"><img src="HoumuPage/HpImg/2020.jpg?1" class="d-block w-100" alt="2020"></a>
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>2020</h5>
-                    <p>公司內部考評始終維持最高品等A+及長官評價</p>
-                </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="3000">
+            <!--<div class="carousel-item active" data-bs-interval="2000">
+        <a id="ImgLink1" href="#"><img src="HoumuPage/HpImg/2021.jpg?1" class="d-block w-100" alt="2021~2022"></a>
+        <div class="carousel-caption d-none d-md-block">
+            <h5>2021~2022</h5>
+            <p>公司內部考評始終維持最高品等A+及上司評價</p>
+        </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="3000">
+        <a id="ImgLink2" href="#"><img src="HoumuPage/HpImg/2020.jpg?1" class="d-block w-100" alt="2020"></a>
+        <div class="carousel-caption d-none d-md-block">
+            <h5>2020</h5>
+            <p>公司內部考評始終維持最高品等A+及長官評價</p>
+        </div>
+    </div>-->
+            <div class="carousel-item active" data-bs-interval="1500">
                 <a id="ImgLink3" href="#"><img src="HoumuPage/HpImg/Step1.jpg?1" class="d-block w-100" alt="2020"></a>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>專案背景暨行為時序圖</h5>
-                    <p>個人規劃並繪製之智能班務系統系統分析相關圖</p>
+                    <h5>プロジェクト背景およびシーケンス図</h5>
+                    <p>私が企画・作成したスマートクラス業務システムのシステム分析関連図</p>
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="3000">
                 <a id="ImgLink4" href="#"><img src="HoumuPage/HpImg/Step2.jpg?1" class="d-block w-100" alt="2020"></a>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>流程架構圖及流程圖</h5>
-                    <p>實際情境以系統規劃流程圖</p>
+                    <h5>プロセスアーキテクチャ図およびフロー図</h5>
+                    <p>実際シナリオに基づくシステム企画フロー図</p>
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="1500">
                 <a id="ImgLink5" href="#"><img src="HoumuPage/HpImg/Step3.jpg?1" class="d-block w-100" alt="2020"></a>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>OCR協作架構</h5>
-                    <p>與OCR核心AP協作詳細架構</p>
+                    <h5>OCR協働アーキテクチャ</h5>
+                    <p>OCRコアAP協働詳細アーキテクチャ</p>
                 </div>
             </div>
-            <div class="carousel-item" data-bs-interval="5000">
+            <div class="carousel-item" data-bs-interval="3000">
                 <a id="ImgLink6" href="#"><img src="HoumuPage/HpImg/Step4.jpg?1" class="d-block w-100" alt="2020"></a>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>課程生命週期</h5>
-                    <p>智能報到系統從系統系統所介接而來的課程於本系統中產生的生命週期</p>
+                    <h5>クラスライフサイクル図</h5>
+                    <p>外部システム連携によるクラスのライフサイクル図</p>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="3000">
+                <a id="ImgLink7" href="#"><img src="HoumuPage/HpImg/Step5.jpg?1" class="d-block w-100" alt="2020"></a>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>実体ER図</h5>
+                    <p>資料エンティティ間の関係を簡易に整理したER図</p>
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <!--<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">上一張</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">下一張</span>
-        </button>
+        </button>-->
     </div>
 
     <div class="modal fade" id="opalrt" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
