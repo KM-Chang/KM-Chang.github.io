@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>中國象棋</title>
+  <style>
+    :root {
+      --bg: #17130f;
+      --panel: #251e17;
+      --board: #d7a85e;
+      --line: #5f3518;
+      --red: #c9342f;
+      --black: #202020;
+      --text: #f5ead9;
+      --muted: #cdbda7;
+      --accent: #f0c36a;
+      --select: #38bdf8;
+      --move: #22c55e;
+      --danger: #ef4444;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+      background:
+        radial-gradient(circle at top, #3d2a1b 0, transparent 35%),
+        linear-gradient(160deg, #15110d, #21170f 55%, #100d0a);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .app {
+      width: min(1100px, 100%);
+      display: grid;
+      grid-template-columns: minmax(340px, 720px) minmax(250px, 320px);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .board-wrap, .side {
+      background: rgba(37, 30, 23, .94);
+      border: 1px solid rgba(240, 195, 106, .23);
+      border-radius: 18px;
+      box-shadow: 0 18px 55px rgba(0, 0, 0, .35);
+    }
+
+    .board-wrap { padding: 16px; }
+
+    .board-shell {
+      width: 100%;
+      aspect-ratio: 9 / 10;
+      position: relative;
+      background: var(--board);
+      border: 8px solid #6a3f1d;
+      border-radius: 10px;
+      box-shadow: inset 0 0 0 3px #b97b38, inset 0 0 30px rgba(69, 32, 8, .25);
+      overflow: hidden;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .side {
+      padding: 18px;
+      position: sticky;
+      top: 18px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      letter-spacing: .08em;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .status {
+      padding: 14px;
+      border-radius: 12px;
+      background: #17120e;
+      border: 1px solid rgba(255,255,255,.07);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .status strong { color: var(--accent); }
+
+    .controls {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    button, select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      background: #33271e;
+      color: var(--text);
+      padding: 9px 12px;
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform .12s, background .12s;
+    }
+
+    button:hover { background: #423226; }
+    button:active { transform: translateY(1px); }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .legend, .rules {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .legend b { color: var(--text); }
+    .rules { margin-top: 14px; }
+
+    .history {
+      margin-top: 14px;
+      max-height: 260px;
+      overflow: auto;
+      background: #17120e;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .history div {
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+
+    @media (max-width: 850px) {
+      .app { grid-template-columns: 1fr; }
+      .side { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="board-wrap">
+      <div class="board-shell">
+        <canvas id="board" aria-label="中國象棋棋盤"></canvas>
+      </div>
+    </section>
+
+    <aside class="side">
+      <h1>中國象棋</h1>
+      <div class="subtitle">純 HTML＋JavaScript。支援雙人對戰、簡易電腦對戰、悔棋與重新開始。</div>
+
+      <div id="status" class="status"></div>
+
+      <div class="controls">
+        <label>
+          對戰模式
+          <select id="mode">
+            <option value="human">雙人對戰</option>
+            <option value="ai-black" selected>玩家紅方 vs 電腦黑方</option>
+            <option value="ai-red">電腦紅方 vs 玩家黑方</option>
+          </select>
+        </label>
+
+        <label>
+          電腦難度
+          <select id="level">
+            <option value="1">簡單</option>
+            <option value="2" selected>普通</option>
+            <option value="3">稍難</option>
+          </select>
+        </label>
+
+        <div class="row">
+          <button id="restart">重新開始</button>
+          <button id="undo">悔棋</button>
+        </div>
+      </div>
+
+      <div class="legend">
+        <b>操作：</b>點選棋子，再點綠色可走位置。藍色外框是目前選中的棋子。
+      </div>
+
+      <div class="rules">
+        已實作：車、馬、象、士、將帥、炮、兵卒的基本走法、九宮限制、過河限制、塞象眼、蹩馬腿、炮架、將帥照面，以及基本將軍判斷。
+      </div>
+
+      <div id="history" class="history"></div>
+    </aside>
+  </main>
+
+<script>
+(() => {
+  const canvas = document.getElementById('board');
+  const ctx = canvas.getContext('2d');
+  const statusEl = document.getElementById('status');
+  const modeEl = document.getElementById('mode');
+  const levelEl = document.getElementById('level');
+  const historyEl = document.getElementById('history');
+
+  const COLS = 9, ROWS = 10;
+  const PIECE_NAMES = {
+    red:   { K:'帥', A:'仕', E:'相', H:'傌', R:'俥', C:'炮', P:'兵' },
+    black: { K:'將', A:'士', E:'象', H:'馬', R:'車', C:'砲', P:'卒' }
+  };
+  const VALUES = { K:10000, R:500, C:260, H:250, E:120, A:120, P:70 };
+
+  let board = [];
+  let turn = 'red';
+  let selected = null;
+  let legalTargets = [];
+  let gameOver = false;
+  let history = [];
+  let busy = false;
+
+  function createInitialBoard() {
+    const b = Array.from({length: ROWS}, () => Array(COLS).fill(null));
+    const back = ['R','H','E','A','K','A','E','H','R'];
+    for (let x=0; x<COLS; x++) {
+      b[0][x] = piece('black', back[x]);
+      b[9][x] = piece('red', back[x]);
+    }
+    b[2][1] = piece('black','C'); b[2][7] = piece('black','C');
+    b[7][1] = piece('red','C');   b[7][7] = piece('red','C');
+    [0,2,4,6,8].forEach(x => {
+      b[3][x] = piece('black','P');
+      b[6][x] = piece('red','P');
+    });
+    return b;
+  }
+
+  function piece(color, type) {
+    return { color, type, id: Math.random().toString(36).slice(2) };
+  }
+
+  function cloneBoard(b) {
+    return b.map(row => row.map(p => p ? {...p} : null));
+  }
+
+  function inside(x,y) {
+    return x >= 0 && x < COLS && y >= 0 && y < ROWS;
+  }
+
+  function palace(color, x, y) {
+    return x >= 3 && x <= 5 && (color === 'red' ? y >= 7 && y <= 9 : y >= 0 && y <= 2);
+  }
+
+  function crossedRiver(color, y) {
+    return color === 'red' ? y <= 4 : y >= 5;
+  }
+
+  function rawMoves(b, x, y, attacksOnly=false) {
+    const p = b[y][x];
+    if (!p) return [];
+    const out = [];
+    const add = (tx,ty) => {
+      if (!inside(tx,ty)) return;
+      if (!b[ty][tx] || b[ty][tx].color !== p.color) out.push({x:tx,y:ty});
+    };
+
+    if (p.type === 'R' || p.type === 'C') {
+      const dirs = [[1,0],[-1,0],[0,1],[0,-1]];
+      for (const [dx,dy] of dirs) {
+        let tx=x+dx, ty=y+dy, screened=false;
+        while (inside(tx,ty)) {
+          const t = b[ty][tx];
+          if (p.type === 'R') {
+            if (!t) out.push({x:tx,y:ty});
+            else {
+              if (t.color !== p.color) out.push({x:tx,y:ty});
+              break;
+            }
+          } else {
+            if (!screened) {
+              if (!t) {
+                if (!attacksOnly) out.push({x:tx,y:ty});
+              } else screened = true;
+            } else if (t) {
+              if (t.color !== p.color) out.push({x:tx,y:ty});
+              break;
+            }
+          }
+          tx += dx; ty += dy;
+        }
+      }
+    }
+
+    if (p.type === 'H') {
+      const jumps = [
+        [ 2, 1, 1, 0], [ 2,-1, 1, 0], [-2, 1,-1, 0], [-2,-1,-1, 0],
+        [ 1, 2, 0, 1], [-1, 2, 0, 1], [ 1,-2, 0,-1], [-1,-2, 0,-1]
+      ];
+      for (const [dx,dy,lx,ly] of jumps) {
+        if (!inside(x+lx,y+ly) || b[y+ly][x+lx]) continue;
+        add(x+dx,y+dy);
+      }
+    }
+
+    if (p.type === 'E') {
+      const ds = [[2,2],[2,-2],[-2,2],[-2,-2]];
+      for (const [dx,dy] of ds) {
+        const tx=x+dx, ty=y+dy, ex=x+dx/2, ey=y+dy/2;
+        if (!inside(tx,ty) || b[ey][ex]) continue;
+        if (p.color === 'red' && ty < 5) continue;
+        if (p.color === 'black' && ty > 4) continue;
+        add(tx,ty);
+      }
+    }
+
+    if (p.type === 'A') {
+      for (const [dx,dy] of [[1,1],[1,-1],[-1,1],[-1,-1]]) {
+        const tx=x+dx, ty=y+dy;
+        if (palace(p.color,tx,ty)) add(tx,ty);
+      }
+    }
+
+    if (p.type === 'K') {
+      for (const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+        const tx=x+dx, ty=y+dy;
+        if (palace(p.color,tx,ty)) add(tx,ty);
+      }
+      // 飛將
+      for (const dy of [-1,1]) {
+        let ty=y+dy;
+        while (inside(x,ty)) {
+          if (b[ty][x]) {
+            if (b[ty][x].type === 'K' && b[ty][x].color !== p.color) out.push({x,y:ty});
+            break;
+          }
+          ty += dy;
+        }
+      }
+    }
+
+    if (p.type === 'P') {
+      const dir = p.color === 'red' ? -1 : 1;
+      add(x, y+dir);
+      if (crossedRiver(p.color,y)) {
+        add(x-1,y); add(x+1,y);
+      }
+    }
+
+    return out;
+  }
+
+  function findKing(b, color) {
+    for (let y=0;y<ROWS;y++) for (let x=0;x<COLS;x++) {
+      const p=b[y][x];
+      if (p && p.color===color && p.type==='K') return {x,y};
+    }
+    return null;
+  }
+
+  function isInCheck(b, color) {
+    const king = findKing(b,color);
+    if (!king) return true;
+    const enemy = color === 'red' ? 'black' : 'red';
+    for (let y=0;y<ROWS;y++) for (let x=0;x<COLS;x++) {
+      const p=b[y][x];
+      if (!p || p.color!==enemy) continue;
+      const moves=rawMoves(b,x,y,true);
+      if (moves.some(m=>m.x===king.x && m.y===king.y)) return true;
+    }
+    return false;
+  }
+
+  function legalMovesForPiece(b,x,y) {
+    const p=b[y][x];
+    if (!p) return [];
+    return rawMoves(b,x,y).filter(m=>{
+      const nb=cloneBoard(b);
+      nb[m.y][m.x]=nb[y][x];
+      nb[y][x]=null;
+      return !isInCheck(nb,p.color);
+    });
+  }
+
+  function allLegalMoves(b,color) {
+    const moves=[];
+    for (let y=0;y<ROWS;y++) for (let x=0;x<COLS;x++) {
+      const p=b[y][x];
+      if (!p || p.color!==color) continue;
+      for (const to of legalMovesForPiece(b,x,y)) {
+        moves.push({from:{x,y},to,piece:p,capture:b[to.y][to.x]});
+      }
+    }
+    return moves;
+  }
+
+  function applyMove(move, record=true) {
+    if (record) history.push({
+      board: cloneBoard(board),
+      turn,
+      gameOver,
+      notation: moveNotation(move)
+    });
+    board[move.to.y][move.to.x]=board[move.from.y][move.from.x];
+    board[move.from.y][move.from.x]=null;
+    selected=null;
+    legalTargets=[];
+    turn = turn === 'red' ? 'black' : 'red';
+
+    const winnerKing = findKing(board,turn);
+    const legal = winnerKing ? allLegalMoves(board,turn) : [];
+    if (!winnerKing || legal.length===0) gameOver=true;
+
+    render();
+    updateStatus();
+    renderHistory();
+  }
+
+  function moveNotation(move) {
+    const p=board[move.from.y][move.from.x];
+    const name=PIECE_NAMES[p.color][p.type];
+    const cap=board[move.to.y][move.to.x] ? '×' : '→';
+    return `${p.color==='red'?'紅':'黑'} ${name} (${move.from.x+1},${10-move.from.y}) ${cap} (${move.to.x+1},${10-move.to.y})`;
+  }
+
+  function aiSide() {
+    if (modeEl.value==='ai-black') return 'black';
+    if (modeEl.value==='ai-red') return 'red';
+    return null;
+  }
+
+  function evaluate(b, aiColor) {
+    let score=0;
+    for (let y=0;y<ROWS;y++) for (let x=0;x<COLS;x++) {
+      const p=b[y][x];
+      if (!p) continue;
+      let v=VALUES[p.type];
+      if (p.type==='P') {
+        if (crossedRiver(p.color,y)) v += 35;
+        v += p.color==='red' ? (9-y)*2 : y*2;
+      }
+      if (p.type==='R' || p.type==='C' || p.type==='H') {
+        v += Math.max(0, 5-Math.abs(4-x))*2;
+      }
+      score += p.color===aiColor ? v : -v;
+    }
+    if (isInCheck(b, aiColor)) score -= 35;
+    const opp=aiColor==='red'?'black':'red';
+    if (isInCheck(b, opp)) score += 35;
+    return score;
+  }
+
+  function chooseAiMove(color, depth) {
+    const moves=allLegalMoves(board,color);
+    if (!moves.length) return null;
+    moves.sort((a,b)=>(b.capture?VALUES[b.capture.type]:0)-(a.capture?VALUES[a.capture.type]:0));
+
+    if (depth===1) {
+      const scored=moves.map(m=>({m,s:(m.capture?VALUES[m.capture.type]:0)+Math.random()*60}));
+      scored.sort((a,b)=>b.s-a.s);
+      return scored[0].m;
+    }
+
+    let best=null, bestScore=-Infinity;
+    for (const m of moves) {
+      const nb=cloneBoard(board);
+      nb[m.to.y][m.to.x]=nb[m.from.y][m.from.x];
+      nb[m.from.y][m.from.x]=null;
+      let s = minimax(nb, depth-1, -Infinity, Infinity, false, color);
+      s += Math.random()*8;
+      if (s>bestScore) { bestScore=s; best=m; }
+    }
+    return best;
+  }
+
+  function minimax(b, depth, alpha, beta, maximizing, aiColor) {
+    const color = maximizing ? aiColor : (aiColor==='red'?'black':'red');
+    const moves=allLegalMoves(b,color);
+    if (depth===0 || !moves.length || !findKing(b,'red') || !findKing(b,'black')) {
+      return evaluate(b,aiColor);
+    }
+
+    if (maximizing) {
+      let value=-Infinity;
+      for (const m of moves) {
+        const nb=cloneBoard(b);
+        nb[m.to.y][m.to.x]=nb[m.from.y][m.from.x];
+        nb[m.from.y][m.from.x]=null;
+        value=Math.max(value,minimax(nb,depth-1,alpha,beta,false,aiColor));
+        alpha=Math.max(alpha,value);
+        if (alpha>=beta) break;
+      }
+      return value;
+    } else {
+      let value=Infinity;
+      for (const m of moves) {
+        const nb=cloneBoard(b);
+        nb[m.to.y][m.to.x]=nb[m.from.y][m.from.x];
+        nb[m.from.y][m.from.x]=null;
+        value=Math.min(value,minimax(nb,depth-1,alpha,beta,true,aiColor));
+        beta=Math.min(beta,value);
+        if (alpha>=beta) break;
+      }
+      return value;
+    }
+  }
+
+  function maybeAiMove() {
+    const ai=aiSide();
+    if (gameOver || busy || ai!==turn) return;
+    busy=true;
+    updateStatus('電腦思考中…');
+    setTimeout(()=>{
+      const move=chooseAiMove(ai,Number(levelEl.value));
+      busy=false;
+      if (move) applyMove(move,true);
+      updateStatus();
+    },180);
+  }
+
+  function updateStatus(extra='') {
+    if (gameOver) {
+      const winner = turn==='red' ? '黑方' : '紅方';
+      statusEl.innerHTML=`<strong>遊戲結束</strong><br>${winner}獲勝。`;
+      return;
+    }
+    const checking=isInCheck(board,turn);
+    statusEl.innerHTML =
+      `<strong>${turn==='red'?'紅方':'黑方'}回合</strong>` +
+      `${checking ? '<br><span style="color:#ef4444">將軍！</span>' : ''}` +
+      `${extra ? '<br>'+extra : ''}`;
+  }
+
+  function renderHistory() {
+    if (!history.length) {
+      historyEl.innerHTML='<div>尚無走棋紀錄</div>';
+      return;
+    }
+    historyEl.innerHTML=history.map((h,i)=>`<div>${i+1}. ${h.notation}</div>`).join('');
+    historyEl.scrollTop=historyEl.scrollHeight;
+  }
+
+  function resizeCanvas() {
+    const rect=canvas.getBoundingClientRect();
+    const dpr=window.devicePixelRatio||1;
+    canvas.width=Math.round(rect.width*dpr);
+    canvas.height=Math.round(rect.height*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    render();
+  }
+
+  function geometry() {
+    const w=canvas.clientWidth, h=canvas.clientHeight;
+    const pad=Math.min(w,h)*0.065;
+    return {
+      w,h,pad,
+      sx:(w-pad*2)/8,
+      sy:(h-pad*2)/9
+    };
+  }
+
+  function pt(x,y,g) {
+    return { x:g.pad+x*g.sx, y:g.pad+y*g.sy };
+  }
+
+  function render() {
+    const g=geometry();
+    ctx.clearRect(0,0,g.w,g.h);
+    drawBoard(g);
+    drawHighlights(g);
+    drawPieces(g);
+  }
+
+  function drawBoard(g) {
+    ctx.save();
+    ctx.strokeStyle='#5f3518';
+    ctx.lineWidth=2;
+    ctx.lineCap='round';
+
+    for (let y=0;y<ROWS;y++) {
+      const a=pt(0,y,g), b=pt(8,y,g);
+      line(a.x,a.y,b.x,b.y);
+    }
+    for (let x=0;x<COLS;x++) {
+      if (x===0 || x===8) {
+        const a=pt(x,0,g), b=pt(x,9,g);
+        line(a.x,a.y,b.x,b.y);
+      } else {
+        let a=pt(x,0,g), b=pt(x,4,g); line(a.x,a.y,b.x,b.y);
+        a=pt(x,5,g); b=pt(x,9,g); line(a.x,a.y,b.x,b.y);
+      }
+    }
+
+    // 九宮
+    let a=pt(3,0,g), b=pt(5,2,g); line(a.x,a.y,b.x,b.y);
+    a=pt(5,0,g); b=pt(3,2,g); line(a.x,a.y,b.x,b.y);
+    a=pt(3,7,g); b=pt(5,9,g); line(a.x,a.y,b.x,b.y);
+    a=pt(5,7,g); b=pt(3,9,g); line(a.x,a.y,b.x,b.y);
+
+    ctx.fillStyle='#5f3518';
+    ctx.font=`bold ${Math.min(g.sx,g.sy)*0.42}px serif`;
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.fillText('楚 河', g.pad+g.sx*2, g.pad+g.sy*4.5);
+    ctx.fillText('漢 界', g.pad+g.sx*6, g.pad+g.sy*4.5);
+
+    ctx.restore();
+  }
+
+  function drawHighlights(g) {
+    if (selected) {
+      const p=pt(selected.x,selected.y,g);
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,Math.min(g.sx,g.sy)*0.40,0,Math.PI*2);
+      ctx.strokeStyle='#38bdf8';
+      ctx.lineWidth=4;
+      ctx.stroke();
+    }
+
+    for (const m of legalTargets) {
+      const p=pt(m.x,m.y,g);
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,Math.min(g.sx,g.sy)*0.12,0,Math.PI*2);
+      ctx.fillStyle=board[m.y][m.x] ? 'rgba(239,68,68,.75)' : 'rgba(34,197,94,.78)';
+      ctx.fill();
+    }
+  }
+
+  function drawPieces(g) {
+    const r=Math.min(g.sx,g.sy)*0.37;
+    for (let y=0;y<ROWS;y++) for (let x=0;x<COLS;x++) {
+      const p=board[y][x];
+      if (!p) continue;
+      const c=pt(x,y,g);
+      ctx.save();
+      ctx.shadowColor='rgba(0,0,0,.35)';
+      ctx.shadowBlur=6;
+      ctx.shadowOffsetY=3;
+      ctx.beginPath();
+      ctx.arc(c.x,c.y,r,0,Math.PI*2);
+      const grad=ctx.createRadialGradient(c.x-r*.3,c.y-r*.35,r*.1,c.x,c.y,r);
+      grad.addColorStop(0,'#fff3ca');
+      grad.addColorStop(1,'#d9a74f');
+      ctx.fillStyle=grad;
+      ctx.fill();
+      ctx.shadowColor='transparent';
+      ctx.strokeStyle=p.color==='red' ? '#a92320' : '#151515';
+      ctx.lineWidth=3;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(c.x,c.y,r*.78,0,Math.PI*2);
+      ctx.strokeStyle=p.color==='red' ? 'rgba(169,35,32,.55)' : 'rgba(21,21,21,.55)';
+      ctx.lineWidth=1.5;
+      ctx.stroke();
+
+      ctx.fillStyle=p.color==='red' ? '#b42b26' : '#1b1b1b';
+      ctx.font=`bold ${r*1.05}px "Noto Serif TC","PMingLiU",serif`;
+      ctx.textAlign='center';
+      ctx.textBaseline='middle';
+      ctx.fillText(PIECE_NAMES[p.color][p.type],c.x,c.y+1);
+      ctx.restore();
+    }
+  }
+
+  function line(x1,y1,x2,y2) {
+    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+  }
+
+  function eventToCell(e) {
+    const rect=canvas.getBoundingClientRect();
+    const g=geometry();
+    const cx=e.clientX-rect.left, cy=e.clientY-rect.top;
+    const x=Math.round((cx-g.pad)/g.sx), y=Math.round((cy-g.pad)/g.sy);
+    if (!inside(x,y)) return null;
+    const p=pt(x,y,g);
+    if (Math.hypot(cx-p.x,cy-p.y) > Math.min(g.sx,g.sy)*0.48) return null;
+    return {x,y};
+  }
+
+  canvas.addEventListener('click', e=>{
+    if (gameOver || busy || aiSide()===turn) return;
+    const c=eventToCell(e);
+    if (!c) return;
+    const p=board[c.y][c.x];
+
+    if (selected) {
+      const target=legalTargets.find(m=>m.x===c.x && m.y===c.y);
+      if (target) {
+        applyMove({from:{...selected},to:{...target}},true);
+        maybeAiMove();
+        return;
+      }
+    }
+
+    if (p && p.color===turn) {
+      selected=c;
+      legalTargets=legalMovesForPiece(board,c.x,c.y);
+    } else {
+      selected=null;
+      legalTargets=[];
+    }
+    render();
+  });
+
+  document.getElementById('restart').addEventListener('click', resetGame);
+
+  document.getElementById('undo').addEventListener('click', ()=>{
+    if (busy || !history.length) return;
+    const steps = aiSide() && history.length >= 2 ? 2 : 1;
+    for (let i=0;i<steps;i++) {
+      const h=history.pop();
+      if (!h) break;
+      board=cloneBoard(h.board);
+      turn=h.turn;
+      gameOver=h.gameOver;
+    }
+    selected=null; legalTargets=[];
+    render(); updateStatus(); renderHistory();
+  });
+
+  modeEl.addEventListener('change', resetGame);
+  levelEl.addEventListener('change', ()=> {
+    if (aiSide()===turn) maybeAiMove();
+  });
+
+  function resetGame() {
+    board=createInitialBoard();
+    turn='red';
+    selected=null;
+    legalTargets=[];
+    gameOver=false;
+    history=[];
+    busy=false;
+    render();
+    updateStatus();
+    renderHistory();
+    maybeAiMove();
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  board=createInitialBoard();
+  resizeCanvas();
+  updateStatus();
+  renderHistory();
+  maybeAiMove();
+})();
+</script>
+</body>
+</html>
